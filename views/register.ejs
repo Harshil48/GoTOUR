@@ -1,0 +1,59 @@
+<%- include("./partials/header") %>
+
+<div class="row">
+	<h1 style="text-align:center;margin-top:3px">Sign Up</h1>
+	<div style="width:30%; margin:25px auto">
+		<form action="/register" method="POST" enctype="multipart/form-data" autocomplete="off">
+			<div class="form-group">
+				<label for="fname">First Name<span> *</span></label>
+                <input class="form-control" type="text" name="user[firstname]" placeholder="first name" required>
+            </div>
+            <div class="form-group">
+				<label for="lname">Last Name</label>
+                <input class="form-control" id="lname" type="text" name="user[lastname]" placeholder="last name">
+            </div>
+            <div class="form-group">
+				<label for="email">E-mail<span> *</span></label>
+                <input class="form-control" id="email" type="email" name="user[email]" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Invalid email. Example : example@email.com" required>
+            </div>
+			<div class="form-group">
+				<label for="image">Profile Image<span> *</span></label>
+                <input type="file" name="profileimage" id="image" accept="image/*">
+            </div>
+			<div class="form-group">
+				<label for="desc">About Yourself</label>
+				<textarea class="form-control" id="desc" name="user[about]" placeholder="Write Something ....." rows="5"></textarea>
+			</div>
+			<label for="uname">Username<span> *</span></label>
+			<div class="form-group">
+				<input class="form-control" id="uname" type="text" name="user[username]" placeholder="username" required>
+			</div>
+			<div class="form-group">
+				<label for="reg_password">Password<span> *</span></label>
+				<input class="form-control" id="reg_password" type="password" name="user[password]" placeholder="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_!@#\$%\^&\*])(?=.{8,}).*$" title="Password must contain at least one uppercase letter, one lowercase letter,one number, one speacial character and at least 8 characters long" required>
+				<div class="pull-right showpass"><input type="checkbox" id="eye" onclick="if(reg_password.type=='text')reg_password.type='password'; else reg_password.type='text';">
+					<label class="showlabel" for="eye"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="reg_confirmpassword">Confirm Password<span> *</span></label>
+				<input class="form-control" id="reg_confirmpassword" type="password" name="user[confirmpassword]" placeholder="Re-enter password" required>
+				<div class="pull-right showpass"><input type="checkbox" id="eye1" onclick="if(reg_confirmpassword.type=='text')reg_confirmpassword.type='password'; else reg_confirmpassword.type='text';">
+					<label class="showlabel" for="eye1"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="reg_admincode">Admin Code</label>
+				<input class="form-control" id="reg_admincode" type="password" name="user[admincode]" placeholder="admin code">
+				<div class="pull-right showpass"><input type="checkbox" id="eye2" onclick="if(reg_admincode.type=='text')reg_admincode.type='password'; else reg_admincode.type='text';">
+					<label class="showlabel" for="eye2"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-lg btn-primary btn-block">Sign Up</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<%- include("./partials/footer") %>

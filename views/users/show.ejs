@@ -1,0 +1,72 @@
+<%- include("../partials/header") %>
+
+<div class="row" id="user">
+	<div class="col-md-4" id="abt">
+		<h2><%= user.firstname + " " + user.lastname %></h2>
+		<hr>
+		<div>
+			<img class="img-circle" src="<%= user.profileimage %>" alt="user profile image">
+		</div>
+		<p style="font-size:1.2em"><%= user.about %></p><br>
+		<p>e-mail : <a href="mailto:<%= user.email %>"><%= user.email %></a></p><br>
+		<div class="row text-center">
+			<div class="col">
+				<a href="/users/<%= user._id %>/followers" class="btn btn-info modify">Followers</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="/users/<%= user._id %>/following" class="btn btn-info modify">Following</a>
+			</div>
+		</div>
+		<br><br>
+		<% if(currentUser && !(user._id.equals(currentUser._id))) { %>
+					<div class="row text-center">
+						<div class="col">
+							<a href="/users/<%= user._id %>/follow" class="btn btn-success btn-block modify <% if (user.followers.some((follower)=>{return follower._id.equals(currentUser._id)})) { %> disabled <% } %>">Follow</a>
+							<a href="/users/<%= user._id %>/unfollow" class="btn btn-danger btn-block modify <% if(!(user.followers.some((follower)=>{return follower._id.equals(currentUser._id)}))) { %> disabled <% } %>">Unfollow</a>
+						</div>
+					</div>
+					<br>
+		<% } if(currentUser && user._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+			<div class="row text-center">
+				<div class="col">
+					<a href="/users/<%= user._id %>/edit" class="btn btn-warning btn-block modify">Edit Profile</a>
+					<form class="delete-form" action="/users/<%= user._id %>?_method=DELETE" method="POST">
+						<button class="btn btn-danger btn-block modify" style="margin-top:5px">Delete Account</button>
+					</form>
+				</div>
+			</div>
+		<% } %>
+	</div>
+	<div class="col-md-1" style="padding:0px; width:5%"></div>
+	<div class="col-md-7">
+		<h3><%= user.username %>'s tourist attractions :</h3>
+		<hr>	
+		<div class="row text-center flex-corr">
+			<% tourPlace.forEach(function(tp){ if(tp.isApproved){ %>
+			<div class="col-xs-6">
+				<div class="thumbnail">
+					<img src= "<%= tp.images[0] %>" style="height: 170px">
+					<div class="caption">
+						<h4><%= tp.name %></h4>
+						<% if(tp.rating===0){ %>
+							<em>No reviews yet.</em>
+						<% } 
+						else { %>
+							<span class="fas fa-star checked"></span>
+							<span class="fas fa-star <% if(tp.rating>1.5){ %> checked <% } %>"></span>
+							<span class="fas fa-star <% if(tp.rating>2.5){ %> checked <% } %>"></span>
+							<span class="fas fa-star <% if(tp.rating>3.5){ %> checked <% } %>"></span>
+							<span class="fas fa-star <% if(tp.rating>4.5){ %> checked <% } %>"></span>
+						<% } %>
+					</div>
+					<div>
+						<p>
+							<a href="/touristplaces/<%= tp._id %>" class="btn btn-primary btn-sm">More Info</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<% }}) %>
+		</div>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

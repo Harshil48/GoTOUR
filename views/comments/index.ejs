@@ -1,0 +1,58 @@
+<%- include("../partials/header") %>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 style="text-align:center">Comment Page : <%= tourPlace.name %></h1>
+        <div class="thumbnail">
+            <div class="caption-full">
+                <% if(tourPlace.rating===0){ %>
+                <h5>
+                    <em>No comments yet.</em>
+                </h5>
+                <% }  
+				else{ %>
+                <p>
+                    <span class="fas fa-star checked"></span>
+                    <span class="fas fa-star <% if(tourPlace.rating>1.5){ %> checked <% } %>"></span>
+                    <span class="fas fa-star <% if(tourPlace.rating>2.5){ %> checked <% } %>"></span>
+                    <span class="fas fa-star <% if(tourPlace.rating>3.5){ %> checked <% } %>"></span>
+                    <span class="fas fa-star <% if(tourPlace.rating>4.5){ %> checked <% } %>"></span>
+                    <em>(total reviews: <%= tourPlace.comments.length %>)</em>
+                </p>
+                <p>
+					Current rating: <strong><%= tourPlace.rating.toFixed(2) %></strong>
+                </p>
+                <p><h3>All reviews :</h3></p>
+                <hr style="margin-top: 0;">
+                <% tourPlace.comments.forEach(function(cmnt){ %>
+                <div>
+                    <div>
+                        <%- '<span class="fa fa-star checked"></span>'.repeat(cmnt.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - cmnt.rating) %>
+						<div>
+							<p><%= cmnt.text %></p>
+							<div>Review by : <a href="/users/<%= cmnt.author.id %>"><em><%= cmnt.author.username %></em></a></div>
+							<div><em><%= cmnt.createdAt.toDateString() %></em></div>
+						</div>
+                    </div>
+                    <div>
+                        <% if(currentUser && cmnt.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-sm btn-warning"
+                           href="/touristplaces/<%=tourPlace._id %>/reviews/<%=cmnt._id %>/edit">Edit</a>
+                        <form class="delete-form" action="/touristplaces/<%=tourPlace._id %>/comments/<%=cmnt._id %>?_method=DELETE" method="POST">
+                              <input type="submit" class="btn btn-sm btn-danger" value="Delete">
+                        </form>
+                        <% } %>
+                    </div>
+                </div>
+                <hr>
+                <% }); %>
+                <% } %>
+                <div>
+                    <a class="btn btn-success <% if (currentUser && tourPlace.comments.some((cmnt)=>{return cmnt.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/touristplaces/<%= tourPlace._id %>/comments/new"><i class="fas fa-plus"></i>&nbsp Leave a Comment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>

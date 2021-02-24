@@ -1,0 +1,51 @@
+<%- include("../partials/header") %>
+
+<div class="row">
+	<div class="col">
+		<h2>New Tourist Attractions requests :</h2>
+		<hr>
+		<% if(tourPlace.length<1) { %>
+		<h3><em>No pending requests.</em></h3>
+		<% } else { tourPlace.forEach(function(tp){ %>
+		<div class="col-md-4 col-sm-6 col-xs-12 text-center">
+			<div class="thumbnail">
+				<img src= "<%= tp.images[0] %>" style="height: 230px">
+				<div class="caption">
+					<h4><%= tp.name %></h4>
+				</div>
+				<div>
+					<p>
+						<a href="/touristplaces/<%= tp._id %>" class="btn btn-primary btn">More Info</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<% }) } %>
+	</div>
+</div><br><br>
+<div class="row">
+	<div class="col">
+		<h2>Update Tourist Attraction requests :</h2>
+		<hr>
+		<% if(temp.length<1) { %>
+		<h3><em>No pending requests.</em></h3>
+		<% } else { temp.forEach(function(tp){ %>
+		<div class="col-md-4 col-sm-6 col-xs-12 text-center">
+			<div class="thumbnail">
+				<img src= "<%= tp.images[0] %>" style="height: 230px">
+				<div class="caption">
+					<h4><%= tp.name %></h4>
+				</div>
+				<div>
+					<p>
+						<a href="/touristplaces/<%= tp._id %>" class="btn btn-primary btn">More Info</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<% }) } %>
+	</div>
+</div>
+
+
+<%- include("../partials/footer") %>

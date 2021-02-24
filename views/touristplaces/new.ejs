@@ -1,0 +1,36 @@
+<%- include("../partials/header") %>
+
+<div class="row">
+	<h1 style="text-align:center">Add a New Tourist Attraction</h1>
+	<div style="width:30%; margin:25px auto">
+		<form action="/touristplaces" method="POST" enctype="multipart/form-data" autocomplete="off">
+			<div class="form-group">
+				<label for="tname">Name<span> *</span></label>
+				<input class="form-control" id="tname" type="text" name="touristplaces[name]" placeholder="Name of Tourist Attraction" required>
+			</div>
+			<div class="form-group">
+				<label for="image">Image<span> *</span></label>
+                <input type="file" multiple="multiple" name="images" id="image" accept="image/*" required>
+            </div>
+			<div class="form-group">
+				<label for="loc">Location<span> *</span></label>
+    			<input class="form-control" type="text" name="touristplaces[location]" id="location" placeholder="Enter location of the tourist attraction" required>
+			</div>
+			<div class="form-group">
+				<label for="desc">Description<span> *</span></label>
+				<textarea class="form-control" id="desc" name="touristplaces[description]" placeholder="Add Info" rows="10" required></textarea>
+			</div>
+			<% if(currentUser.isAdmin){ %>
+			<div class="form-group">
+				<button class="btn btn-lg btn-primary btn-block">Add</button>
+			</div>
+			<% } else { %>
+			<div class="form-group">
+				<button class="btn btn-lg btn-primary btn-block">Submit</button>
+			</div>
+			<% } %>
+		</form>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

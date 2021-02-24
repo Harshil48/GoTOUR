@@ -1,0 +1,28 @@
+<%- include("./partials/header") %>
+
+<div class="row">
+	<h1 style="text-align:center">Reset Password</h1>
+	<div style="width:30%; margin:25px auto">
+		<form action="/reset?token=<%= token %>" method="POST" autocomplete="off">
+			<div class="form-group">
+				<label for="reg_password">New Password<span> *</span></label>
+				<input class="form-control" id="reg_password" type="password" name="password" placeholder="password (required)" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[_!@#\$%\^&\*])(?=.{8,}).*$" title="Password must contain at least one uppercase letter, one lowercase letter,one number, one speacial character and at least 8 characters long" required>
+				<div class="pull-right showpass"><input type="checkbox" id="eye" onclick="if(reg_password.type=='text')reg_password.type='password'; else reg_password.type='text';">
+					<label class="showlabel" for="eye"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="reg_confirmpassword">Confirm Password<span> *</span></label>
+				<input class="form-control" id="reg_confirmpassword" type="password" name="confirmpassword" placeholder="Re-enter password" required>
+				<div class="pull-right showpass"><input type="checkbox" id="eye1" onclick="if(reg_confirmpassword.type=='text')reg_confirmpassword.type='password'; else reg_confirmpassword.type='text';">
+					<label class="showlabel" for="eye1"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-lg btn-primary btn-block">Reset</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<%- include("./partials/footer") %>

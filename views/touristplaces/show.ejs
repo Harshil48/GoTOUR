@@ -1,0 +1,125 @@
+<%- include("../partials/header") %>
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="list-group">
+			<li class="list-group-item active"><a id="tp" href="/touristplaces/<%= tourPlace._id %>"><%= tourPlace.name %></a></li>
+			<li class="list-group-item"><a href="/users/<%= tourPlace.author.id %>"><%= tourPlace.author.username %>'s Profile</a></li>
+			<li class="list-group-item"><a href="/travelagencies">Plan My Trip</a></li>
+		</div>
+		<div>
+			<iframe width="263" height="520" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=<%= tourPlace.location %>+(Your%20Business%20Name)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+			</iframe>
+		</div><br>
+	</div>
+	<div class="col-md-9"> 
+		<div class="thumbnail">
+			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			  <ol class="carousel-indicators">
+				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+			  </ol>
+			  <div class="carousel-inner" role="listbox">
+				<div class="item active">
+				  <img src="<%= tourPlace.images[0] %>" alt="Image">
+				</div>
+				<% tourPlace.images.forEach(function(tp,index){ if(index>0) {%>
+				<div class="item">
+				  <img src=<%= tp %> alt="Image">
+				</div>
+				<%}})%>
+			  </div>
+			  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			  </a>
+			  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			  </a>
+			</div>
+			<div class="caption-full">
+				<h3><a href=""><%= tourPlace.name %></a>
+				<% if(tourPlace.rating!==0 && tourPlace.isApproved){ %>
+                    	<p id="rating" class="pull-right">
+                        	<span class="fas fa-star checked"></span>
+                        	<span class="fas fa-star <% if(tourPlace.rating>1.5){ %> checked <% } %>"></span>
+                        	<span class="fas fa-star <% if(tourPlace.rating>2.5){ %> checked <% } %>"></span>
+                        	<span class="fas fa-star <% if(tourPlace.rating>3.5){ %> checked <% } %>"></span>
+                        	<span class="fas fa-star <% if(tourPlace.rating>4.5){ %> checked <% } %>"></span>
+                    	</p>
+					<% } %></h3>
+				<p style="font-size:1.17em"><%- tourPlace.description %></p>
+				<p>
+					<em>Submitted by : <a href="/users/<%= tourPlace.author.id %>"><%= tourPlace.author.username %></a>, <%= moment(tourPlace.createdAt).fromNow() %></em>
+				</p>
+				<% if(tourPlace.isApproved) { %>
+                <p>
+                	Current rating : <strong><%= tourPlace.rating.toFixed(1) %></strong><em> (total reviews : <%= tourPlace.comments.length %>)</em>
+                </p>
+				<% } %>
+				<% if(!(tourPlace.isUpdate)){if(currentUser && currentUser.isAdmin && !(tourPlace.isApproved)){ %>
+					<a href="/touristplaces/<%= tourPlace._id %>/approval" class="btn btn-success modify">Approve</a>
+					<form class="delete-form" action="/touristplaces/<%= tourPlace._id %>?_method=DELETE" method="POST">
+						<button class="btn btn-danger modify">Reject</button>
+					</form>
+					<a href="/touristplaces/<%= tourPlace._id %>/edit" class="btn btn-warning modify">Edit</a>
+				<% } else { if(currentUser && tourPlace.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+					<a href="/touristplaces/<%= tourPlace._id %>/edit" class="btn btn-warning modify">Edit</a>
+					<% } if(currentUser && currentUser.isAdmin){ %>
+					<form class="delete-form" action="/touristplaces/<%= tourPlace._id %>?_method=DELETE" method="POST">
+						<button class="btn btn-danger modify">Delete</button>
+					</form>
+				<% } } } else { %>
+				<form class="delete-form" action="/touristplaces/<%= tourPlace._id %>?_method=PUT" method="POST">
+					<button class="btn btn-warning modify">Approve</button>
+				</form>
+				<form class="delete-form" action="/touristplaces/<%= tourPlace._id %>/reject?_method=DELETE" method="POST">
+					<button class="btn btn-danger modify">Reject</button>
+				</form>
+				<% } %>
+			</div>
+		</div>
+		<% if(tourPlace.isApproved) { %>
+        <div class="well">
+			<div>
+					<span id="cmnt-header">Latest reviews/comments:</span>
+					<span class="pull-right">
+						<a href="/touristplaces/<%= tourPlace._id %>/comments/new" class="btn btn-success"><i class="fas fa-plus"></i>&nbsp Leave a Comment</a>
+					</span>
+			</div>
+			<hr>
+            <% tourPlace.comments.slice(0,3).forEach(function(cmnt){ %>
+            <div>
+				<div>
+					<a href="/users/<%= cmnt.author.id %>"><strong><%=cmnt.author.username%></strong></a>
+					<span class="pull-right"><%= moment(cmnt.createdAt).fromNow() %></span>
+				</div>
+                <div>
+                    <%- '<span class="fas fa-star checked"></span>'.repeat(cmnt.rating) %><%- '<span class="fas fa-star"></span>'.repeat(5 - cmnt.rating) %>
+                </div>
+                <div>
+                    <p style="text-align: justify; word-wrap: break-word;">
+                        <%= cmnt.text %>
+                    </p>
+                    <% if(currentUser && cmnt.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                    <a class="btn btn-xs btn-warning modify"
+                        href="/touristplaces/<%= tourPlace._id %>/comments/<%= cmnt._id %>/edit">Edit</a>
+                    <form class="delete-form" action="/touristplaces/<%= tourPlace._id %>/comments/<%= cmnt._id %>?_method=DELETE" method="POST">
+                        <input type="submit" class="btn btn-xs btn-danger modify" value="Delete">
+                    </form>
+                    <% } %>
+                </div>
+            </div>
+            <hr>
+            <% }); %>
+            <div style="margin-bottom: 10px;">
+                <h4><a href="/touristplaces/<%= tourPlace._id %>/comments"><i class="fas fa-search" aria-hidden="true"></i> See all reviews/comments</a></h4>
+            </div>
+		</div>
+		<% } %>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

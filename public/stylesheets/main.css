@@ -1,0 +1,192 @@
+html{
+	position: relative;
+	min-height: 100%;
+}
+body{
+	margin-bottom: 60px;
+}
+
+#search{
+	margin-bottom:15px;
+	padding-left: 0px;
+	padding-right: 30px;
+}
+
+#noMatch{
+	float: left;
+	margin: 0 5px;
+	font-size: 1.25em;
+	color: #838383;
+}
+
+.far{
+	font-size: 1.2em;
+	letter-spacing: 0.05rem;
+}
+
+.flex-corr{
+	display:flex;
+	flex-wrap: wrap;
+}
+
+.thumbnail img{
+	width:100%;
+};
+
+.thumbnail a img{
+	height: 263px;
+}
+
+.thumbnail{
+	padding:0;
+}
+
+.thumbnail .caption-full{
+	padding:9px;
+}
+
+.delete-form{
+	display:inline;
+}
+
+#cmnt-header{
+	font-size:1.8em;
+}
+
+.checked{
+	color:orange;
+}
+
+#tp{
+	color: white;
+}
+
+.caption-full{
+	margin-right: 1.15rem;
+	margin-left: 1.15rem;
+}
+
+#rating{
+	font-size: 0.9em;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color:#eee;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.showpass{
+	position: relative;
+	top:-27px;
+	right: 12px;
+}
+
+.showpass input[type='checkbox']{
+    display: none;
+}
+
+.showpass input[type='checkbox'] + label:before{
+	font-family: 'Font Awesome 5 Pro';
+    content: "\f070";
+	font-size: 14px;
+	cursor: pointer;
+	color: darkgray;
+}
+
+.showpass input[type='checkbox']:checked + label:before {
+    content: "\f06e";
+}
+
+.showlabel{
+	margin: 0px;
+}
+
+a:hover{
+	text-decoration:none;
+}
+
+.img-circle{
+	display: block;
+	height: 250px;
+	width: 250px;
+	margin: 8.5% auto;
+}
+
+#user{
+	padding: 0px 15px 15px 15px;
+}
+
+#my{
+	background: #e7e7e7;
+}
+
+.nav a{
+	font-size: 1.1em;
+}
+
+.navbar-brand{
+	font-size: 1.35em;
+}
+
+.modify{
+	letter-spacing: 0.15rem;
+}
+
+#abt p{
+	font-size: 1.12em;
+}
+
+.users{
+	padding-top: 0px;
+}
+
+#follow{
+	border: 0px;
+}
+
+#follow .caption{
+	padding: 0px;
+}
+
+#follow img{
+	margin: 15px auto 20px auto;
+	height: 200px;
+	width: 200px;
+}
+
+hr{
+	margin: 15px 0px;
+}
+
+#user ul{
+	font-size: 1.45em;
+	list-style-type: "\2713";
+}
+
+.carousel-control.right,.carousel-control.left{
+	background-image: none;
+}
+
+.carousel-control{
+	opacity: 0.9;
+}
+
+.carousel-inner .item img{
+	height: 500px;
+}
+
+label{
+	letter-spacing:0.05rem;
+}
+
+label span{
+	color:red;
+	font-size:1.1em;
+}

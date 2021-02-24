@@ -1,0 +1,24 @@
+<%- include("../partials/header") %>
+
+<div class="row" id="user">
+	<div class="col">
+		<h2><%= user.username %> following :</h2>
+		<hr>
+		<% if (user.following.length<1) { %>
+		<h3><em>Not following anyone yet.</em></h3>
+		</div>
+		<% } else { %>
+		<% user.following.forEach(function(following){ %>
+		<div class="col-md-3 col-sm-4 col-xs-6 text-center">
+			<div class="thumbnail" id="follow">
+				<img class="img-circle" src="<%= following.profileimage %>">
+				<div class="caption">
+					<a href="/users/<%= following._id %>"><h4><%= following.firstname + " " + following.lastname %></h4></a>
+				</div>
+			</div>
+	    </div>
+		<% }) } %>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

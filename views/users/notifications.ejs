@@ -1,0 +1,23 @@
+<%- include("../partials/header") %>
+
+<div class="row" id="user">
+	<div class="col">
+		<h2><%= user.username %>'s Notifications :</h2>
+		<hr>
+		<% if (user.notifications.length<1) { %>
+			<h3><em>No Notifications yet.</em></h3>
+		<% } else { %>
+		<ul>
+			<% user.notifications.forEach(function(noti){ %>
+				<li>
+					&nbsp;<a href="/users/<%= user._id %>/notifications/<%= noti.id %>">
+						<%= noti.username %> added a new tourist place
+					</a>
+				</li>
+			<% }); %>
+		</ul>
+		<% } %>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

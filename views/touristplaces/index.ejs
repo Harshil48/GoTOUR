@@ -1,0 +1,51 @@
+<%- include("../partials/header") %>
+
+<header class="jumbotron">
+	<div class="container">
+		<h1><i class="fas fa-torii-gate"></i> Welcome to GoTOUR!</h1>
+		<p style="font-size:1.6em">View our hand-picked Tourist Attractions from all over India.</p>
+		<p>
+			<a class="btn btn-primary btn-lg" href="/touristplaces/new"><i class="fas fa-plus"></i>&nbsp Add New Tourist Attraction</a>
+		</p>
+	</div>
+</header>
+<div class="container" id="search">
+	<% if(noMatch===1) { %>
+	<p id="noMatch"><em>No matches found.</em></p>
+	<% } %>
+	<form action="/touristplaces" method="GET" class="form-inline pull-right" id="touristplaces-search" autocomplete="off">
+		<div class="form-group">
+            <input type="text" name="search" placeholder=" &#xf002  Search Tourist places" class="form-control far">
+        </div>
+	</form>
+</div>
+
+<div class="row text-center flex-corr">
+	<% tourPlace.forEach(function(tp){ if(tp.isApproved){ %>
+	<div class="col-md-4 col-sm-6 col-xs-12">
+		<div class="thumbnail">
+			<img src= "<%= tp.images[0] %>" style="height: 230px">
+			<div class="caption">
+				<h4><%= tp.name %></h4>
+				<% if(tp.rating===0){ %>
+					<em>No reviews yet.</em>
+				<% } 
+				else { %>
+					<span class="fas fa-star checked"></span>
+					<span class="fas fa-star <% if(tp.rating>1.5){ %> checked <% } %>"></span>
+					<span class="fas fa-star <% if(tp.rating>2.5){ %> checked <% } %>"></span>
+					<span class="fas fa-star <% if(tp.rating>3.5){ %> checked <% } %>"></span>
+					<span class="fas fa-star <% if(tp.rating>4.5){ %> checked <% } %>"></span>
+				<% } %>
+			</div>
+			<div>
+				<p>
+					<a href="/touristplaces/<%= tp._id %>" class="btn btn-primary btn">More Info</a>
+				</p>
+			</div>
+		</div>
+	</div>
+    <% }}) %>
+</div>
+
+<%- include("../partials/footer") %>

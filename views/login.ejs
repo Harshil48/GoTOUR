@@ -1,0 +1,29 @@
+<%- include("./partials/header") %>
+
+<div class="row">
+	<h1 style="text-align:center">Login</h1>
+	<div style="width:30%; margin:25px auto">
+		<form action="/login" method="POST" autocomplete="off">
+			<div class="form-group">
+				<input id="uname" class="form-control far" type="text" name="username" placeholder="&#xf007  Username" required>
+			</div>
+			<div class="form-group">
+				<input class="form-control far" id="reg_password" type="password" name="password" placeholder="&#xf084  Password" required>
+				<div class="pull-right showpass"><input type="checkbox" id="eye" onclick="if(reg_password.type=='text')reg_password.type='password'; else reg_password.type='text';">
+					<label class="showlabel" for="eye"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-lg btn-primary btn-block">Login</button>
+			</div><hr style="margin-top:1.5em;border-color:#ddd">
+		</form>
+		<div style="text-align:center">
+			Not Registered yet?<a href="/register">SignUP</a>
+		</div><br>
+		<div style="text-align:center">
+			<a href="/forgot">Forgot Password?</a>
+		</div>
+	</div>
+</div>
+
+<%- include("./partials/footer") %>
